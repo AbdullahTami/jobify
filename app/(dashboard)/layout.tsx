@@ -1,5 +1,21 @@
-import React from "react";
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
+import { PropsWithChildren } from "react";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <div>{children}</div>;
+export default function Layout({ children }: PropsWithChildren) {
+  return (
+    <main className="grid lg:grid-cols-5">
+      {/* First-col hide on small screen */}
+      <div className="hidden lg:block log:col-span-1 lg:min-h-screen">
+        <Sidebar />
+      </div>
+
+      {/* Second-col hide dropdown on big screen */}
+      <div className="lg:col-span-4">
+        <Navbar />
+        <div className="py-16 px-4 sm:px-8 lg:px-16">{children}</div>
+      </div>
+      {children}
+    </main>
+  );
 }
