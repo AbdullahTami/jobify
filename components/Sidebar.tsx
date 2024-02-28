@@ -12,7 +12,7 @@ export default function Sidebar() {
   console.log(pathname);
 
   return (
-    <aside className="py-4 px-8 bg-mutated h-full">
+    <aside className="py-4 px-8 bg-muted h-full">
       <Image src={Logo} alt="Logo" className="mx-auto" />
       <div className="flex flex-col mt-20 gap-y-4">
         {links.map((link) => {
