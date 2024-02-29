@@ -1,4 +1,4 @@
-"use state";
+"use client";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import React, { PropsWithChildren, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
