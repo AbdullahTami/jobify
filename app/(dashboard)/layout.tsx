@@ -15,7 +15,6 @@ export default function Layout({ children }: PropsWithChildren) {
         <Navbar />
         <div className="py-16 px-4 sm:px-8 lg:px-16">{children}</div>
       </div>
-      {children}
     </main>
   );
 }
