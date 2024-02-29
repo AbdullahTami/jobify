@@ -1,7 +1,21 @@
+"use state";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function Provider({ children }: PropsWithChildren) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000 * 50,
+          },
+        },
+      })
+  );
   return (
     <>
       <ThemeProvider
@@ -10,7 +24,11 @@ export default function Provider({ children }: PropsWithChildren) {
         enableSystem
         disableTransitionOnChange
       >
-        {children}
+        <Toaster />
+        <QueryClientProvider client={queryClient}>
+          {children}
+          <ReactQueryDevtools />
+        </QueryClientProvider>
       </ThemeProvider>
     </>
   );
