@@ -17,7 +17,8 @@ export default async function JobsPage() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <SearchForm /> <JobsList />{" "}
+      <SearchForm />
+      <JobsList />
     </HydrationBoundary>
   );
 }
