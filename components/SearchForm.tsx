@@ -16,6 +16,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 export default function SearchForm() {
   const searchParams = useSearchParams();
   const search = searchParams.get("search") || "";
+
   const jobStatus = searchParams.get("jobStatus") || "all";
 
   const router = useRouter();
