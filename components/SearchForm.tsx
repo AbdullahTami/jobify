@@ -11,14 +11,25 @@ import { JobStatus } from "@/utils/types";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { FormEvent } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function SearchForm() {
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search") || "";
+  const jobStatus = searchParams.get("jobStatus") || "all";
+
+  const router = useRouter();
+  const pathname = usePathname();
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const search = formData.get("search") as string;
     const jobStatus = formData.get("jobStatus") as string;
-    console.log(search, jobStatus);
+    let params = new URLSearchParams();
+
+    params.set("search", search);
+    params.set("jobStatus", jobStatus);
+    router.push(`${pathname}?${params.toString()}`);
   }
 
   return (
@@ -26,8 +37,13 @@ export default function SearchForm() {
       onSubmit={handleSubmit}
       className="bg-muted mb-16 p-8 grid sm:grid-cols-2 md:grid-cols-3 gap-4 rounded-lg"
     >
-      <Input type="text" placeholder="Search jobs" name="search" />
-      <Select name="jobStatus">
+      <Input
+        type="text"
+        placeholder="Search jobs"
+        name="search"
+        defaultValue={search}
+      />
+      <Select name="jobStatus" defaultValue={jobStatus}>
         <SelectTrigger>
           <SelectValue />
         </SelectTrigger>
