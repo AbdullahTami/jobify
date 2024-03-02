@@ -6,7 +6,7 @@ export default function Layout({ children }: PropsWithChildren) {
   return (
     <main className="grid lg:grid-cols-5">
       {/* First-col hide on small screen */}
-      <div className="hidden lg:block log:col-span-1 lg:min-h-screen">
+      <div className="hidden lg:block lg:col-span-1 lg:min-h-screen">
         <Sidebar />
       </div>
 
