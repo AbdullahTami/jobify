@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs";
 import { JobType, CreateAndEditJobType, createAndEditJobSchema } from "./types";
 import { redirect } from "next/navigation";
 import { Prisma } from "@prisma/client";
+import dayjs from "dayjs";
 
 function authenticateAndRedirect(): string {
   const { userId } = auth();
@@ -178,6 +179,44 @@ export async function getStatsAction(): Promise<{
     };
 
     return defaultStats;
+  } catch (error) {
+    redirect("/jobs");
+  }
+}
+
+export async function getChartsDataAction(): Promise<
+  Array<{ date: string; count: number }>
+> {
+  const userId = authenticateAndRedirect();
+  const sixMonthsAgo = dayjs().subtract(6, "month").toDate();
+  try {
+    const jobs = await prisma.job.findMany({
+      where: {
+        clerkId: userId,
+        createdAt: {
+          gte: sixMonthsAgo,
+        },
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    let applicationsPerMonth = jobs.reduce((acc, job) => {
+      const date = dayjs(job.createdAt).format("MMM YY");
+
+      const existingEntry = acc.find((entry) => entry.date === date);
+
+      if (existingEntry) {
+        existingEntry.count += 1;
+      } else {
+        acc.push({ date, count: 1 });
+      }
+      return acc;
+    }, [] as Array<{ date: string; count: number }>);
+
+    console.log(applicationsPerMonth);
+    return applicationsPerMonth;
   } catch (error) {
     redirect("/jobs");
   }
