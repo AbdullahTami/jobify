@@ -16,10 +16,9 @@ export default function HomePage() {
             job <span className="text-primary">tracking</span> app
           </h1>
           <p className="leading-loose max-w-md mt-4">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius,
-            soluta numquam nostrum exercitationem incidunt doloribus vitae
-            facere aspernatur obcaecati quidem aut ullam ut sint ex voluptas
-            nulla harum dolorum nesciunt!
+            Are you tired of juggling multiple job applications, interviews, and
+            follow-ups? Look no further! Jobify is your all-in-one solution for
+            managing your job search journey.!
           </p>
           <Button asChild className="mt-4 ">
             <Link href="/add-job">Get started</Link>
