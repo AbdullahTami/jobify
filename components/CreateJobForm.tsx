@@ -38,10 +38,10 @@ export default function CreateJobForm() {
     mutationFn: (values: CreateAndEditJobType) => createJobAction(values),
     onSuccess: (data) => {
       if (!data) {
-        toast({ description: "there was an error" });
+        ({ description: "there was an error" });
         return;
       }
-      toast({ description: "job created" });
+      toast({ description: "Job created successfully ✅" });
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
       queryClient.invalidateQueries({ queryKey: ["stats"] });
       queryClient.invalidateQueries({ queryKey: ["charts"] });
